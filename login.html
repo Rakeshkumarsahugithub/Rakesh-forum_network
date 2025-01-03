@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Set character encoding to UTF-8 for proper text rendering -->
+    <meta charset="UTF-8">
+    <!-- Ensure the page is responsive and scales correctly on different devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title displayed on the browser tab -->
+    <title>Login - Student Social Network</title>
+    <style>
+        /* General styles for the body element */
+        body {
+            font-family: Arial, sans-serif; /* Sets font for the page */
+            background-color: #f4f4f4; /* Fallback color in case image doesn't load */
+            background-image: url(https://wallpapercave.com/wp/wp4831555.jpg); /* Background image */
+            background-size: cover; /* Ensure background image covers entire body */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent repeating of the background image */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            display: flex; /* Use flexbox for centering content */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height */
+        }
+        
+        /* Styles for the login container */
+        #loginContainer {
+            max-width: 400px; /* Max width of the login container */
+            width: 100%; /* Full width up to max-width */
+            padding: 20px; /* Padding inside the container */
+            background-image: url(https://wallpapercave.com/wp/JvZEkQn.jpg); /* Background image of the container */
+            background-size: cover; /* Ensure background image covers the container */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent repeating of the background image */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 0 10px red; /* Shadow effect with red color */
+        }
+
+        /* Styles for the heading inside the container */
+        h2 {
+            color: #333; /* Dark color for the heading text */
+        }
+
+        /* Styles for the form */
+        form {
+            display: flex; /* Use flexbox layout */
+            flex-direction: column; /* Arrange items vertically */
+        }
+
+        /* Styles for the labels */
+        label {
+            margin-top: 10px; /* Space above each label */
+        }
+
+        /* Styles for input fields */
+        input {
+            padding: 8px; /* Padding inside the input fields */
+            margin-top: 5px; /* Space above each input field */
+            border: 1px solid #ccc; /* Light border color */
+            border-radius: 4px; /* Rounded corners for input fields */
+        }
+
+        /* Styles for buttons */
+        button {
+            margin-top: 30px; /* Space above the button */
+            width: 400px; /* Fixed width for the button */
+            height: 52px; /* Fixed height for the button */
+            cursor: pointer; /* Pointer cursor on hover */
+            color: white; /* White text color */
+            font-size: 17px; /* Font size for the button text */
+            border-radius: 1rem; /* Rounded corners for the button */
+            border: 3px solid rgba(237, 90, 5, 0.825); /* Border color with transparency */
+            position: relative; /* Positioning context for the button */
+            background: #081769; /* Background color of the button */
+            transition: 0.2s; /* Smooth transition for button effects */
+        }
+
+        /* Styles for the button when it is active (pressed) */
+        button:active {
+            transform: scale(0.9) rotate(3deg); /* Scale down and rotate when pressed */
+            background: radial-gradient(circle farthest-corner at 10% 20%, rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2%); /* Gradient background */
+            transition: 0.5s; /* Smooth transition for the gradient effect */
+        }
+
+        /* Styles for the link section */
+        .link {
+            margin-top: 10px; /* Space above the link section */
+            text-align: center; /* Center-align text */
+        }
+
+        /* Styles for links inside the link section */
+        .link a {
+            color: #007bff; /* Link color */
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        /* Styles for links on hover */
+        .link a:hover {
+            text-decoration: underline; /* Underline links on hover */
+        }
+    </style>
+</head>
+<body>
+    <div id="loginContainer">
+        <!-- Main heading of the login page -->
+        <h2>Login</h2>
+        <!-- Login form -->
+        <form id="loginForm">
+            <!-- Username input -->
+            <label for="loginUsername">Username:</label>
+            <input type="text" id="loginUsername" required> <!-- Input field for username, required for form submission -->
+            <!-- Password input -->
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" required> <!-- Input field for password, required for form submission -->
+            <!-- Submit button -->
+            <button type="submit">Login >></button> <!-- Button to submit the form -->
+        </form>
+        <!-- Registration link section -->
+        <div class="link">
+            <p>Don't have an account? <a href="index.html">Register here</a></p> <!-- Link to the registration page -->
+        </div>
+    </div>
+
+    <script>
+        // Wait until the DOM content is fully loaded and Executes the script as soon as the DOM is fully loaded but before images, stylesheets, and other resources are completely loaded.
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('loginForm'); // Reference to the login form
+
+//if you don't want to use this method you can use it's alternative
+//             window.onload = () => {     //Waits for the entire page to load, including images, iframes, and other external resources. 
+//     const loginForm = document.getElementById('loginForm');
+// };
+
+            // Retrieve user data from localStorage or initialize as an empty array - If there is no item with this key, it returns null
+            //JSON.parse - this method converts string to object. To retrieve and use data that was stored or transmitted in JSON format (e.g., retrieving data from localStorage, processing data received from a server).
+            let users = JSON.parse(localStorage.getItem('users')) || []; //Users represents a list of all registered users.if no data was found in localStorage, the empty array [] will be used as the fallback value.
+            let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')); //loggedInUser represents the currently logged-in user.This method retrieves the item with the key 'loggedInUser' from the browser's localStorage.
+
+            // If a user is already logged in, redirect to the main page
+            if (loggedInUser) {
+                window.location.href = 'homepage.html'; // Redirect to main page if logged in
+            }//When you set window.location.href to a new URL, the browser performs a full page reload and navigates to the specified URL.
+
+            // Handle form submission
+            loginForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent the default form submission without full page reload redirect to homepage.html if successful login then.
+           //event.preventDefault() prevents the browser's default action for an event. For example, it stops a form from submitting normally, a link from navigating, or a keypress from performing its default function.
+           // The browser will reload the page or navigate away (based on form action).
+
+                // Get username and password from the form
+                const username = document.getElementById('loginUsername').value;
+                const password = document.getElementById('loginPassword').value;
+
+                // Find the user with matching username and password
+                const user = users.find(user => user.username === username && user.password === password);
+
+                // If user is found, log them in
+                if (user) {
+                    loggedInUser = user; // Set logged-in user
+                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser)); // To store data in the browser's local storage. Save user to localStorage
+                    window.location.href = 'homepage.html'; // Redirect to main page  upon successful login.
+                } else {
+                    alert('Invalid username or password.'); // Show error message if login fails or if login credentials are incorrect.
+                }
+
+                loginForm.reset(); // Reset the form fields after submission
+            });
+        });
+    </script>
+</body>
+</html>

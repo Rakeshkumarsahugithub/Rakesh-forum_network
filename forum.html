@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum - Student Social Network</title>
+    <style>
+        /* Basic styling for the entire page */
+        body {
+            font-family: Arial, sans-serif; /* Sets the font for the page */
+            background-image: url("https://images.unsplash.com/photo-1499195333224-3ce974eecb47?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2cf549433129d4227d1879347b9e78ce&auto=format&fit=crop&w=1248&q=80"); /* Adds a background image */
+            background-size: cover; /* Ensures the background image covers the whole page */
+            margin: 0; /* Removes default margin */
+            padding: 0; /* Removes default padding */
+        }
+
+        /* Styling for the main container of the app */
+        #app {
+            max-width: 800px; /* Limits the maximum width of the container */
+            margin: auto; /* Centers the container horizontally */
+            padding: 20px; /* Adds padding inside the container */
+            margin-top: 10px; /* Adds a top margin */
+            background: #f9f6f6; /* Sets a light background color */
+            border-radius: 8px; /* Rounds the corners of the container */
+            box-shadow: 0 0 10px rgb(4, 102, 239); /* Adds a shadow around the container */
+        }
+
+        /* Styling for the navigation bar */
+        nav {
+            margin-bottom: 20px; /* Adds margin below the navigation bar */
+            padding: 10px; /* Adds padding inside the navigation bar */
+            background: #007bff; /* Sets a blue background color */
+            border-radius: 8px; /* Rounds the corners of the navigation bar */
+            color: white; /* Sets the text color to white */
+            display: flex; /* Uses flexbox for layout */
+            justify-content: space-between; /* Distributes space between navigation items */
+            align-items: center; /* Vertically centers items */
+        }
+
+        /* Styling for navigation links */
+        .nav-links {
+            display: flex; /* Uses flexbox for layout */
+            gap: 15px; /* Adds space between links */
+        }
+
+        .nav-links a {
+            text-decoration: none; /* Removes underline from links */
+            color: #fff; /* Sets the link text color to white */
+            font-weight: bold; /* Makes link text bold */
+        }
+
+        .nav-links a.active {
+            text-decoration: underline; /* Underlines the active link */
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline; /* Underlines links on hover */
+        }
+
+        /* Styling for buttons */
+        button {
+            padding: 10px; /* Adds padding inside buttons */
+            background-color: #d9534f; /* Sets a red background color */
+            border: none; /* Removes the border */
+            color: #fff; /* Sets the text color to white */
+            border-radius: 4px; /* Rounds the corners of the button */
+            cursor: pointer; /* Changes the cursor to a pointer on hover */
+        }
+
+        button:hover {
+            background-color: #c9302c; /* Darkens the button color on hover */
+        }
+
+        /* Styling for the forum container */
+        #forumContainer {
+            margin-top: 10px; /* Adds top margin */
+        }
+
+        /* Styling for individual forum posts */
+        .forum-post {
+            border-bottom: 1px solid #ccc; /* Adds a bottom border */
+            padding: 10px 0; /* Adds vertical padding */
+        }
+
+        h2 {
+            margin: 0; /* Removes default margin */
+            color: #044385; /* Sets the heading color */
+        }
+
+        p {
+            margin: 5px 0; /* Adds vertical margin */
+        }
+
+        /* Styling for the new post section */
+        #newPost {
+            margin-top: 10px; /* Adds top margin */
+        }
+
+        #newPost textarea {
+            width: 97%; /* Makes the textarea take the full width */
+            padding: 10px; /* Adds padding inside the textarea */
+            border-radius: 25px; /* Rounds the corners */
+            border: 1px solid #ccc; /* Adds a border */
+            resize: vertical; /* Allows vertical resizing */
+        }
+
+        #newPost button {
+            margin-top: 10px; /* Adds top margin */
+            width: 100%; /* Makes the button take the full width */
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation bar -->
+        <nav>
+            <div class="nav-links">
+                <a href="homepage.html">Home</a>
+                <a href="forum.html" id="navForum" class="active">Forum</a>
+                <a href="notes.html" id="navNotes">Notes</a>
+                <a href="materials.html" id="navMaterials">Materials</a>
+            </div>
+            <button id="logoutButton">Logout</button>
+        </nav>
+
+        <!-- Main heading for the forum page -->
+        <h2>Welcome to the Forum</h2>
+                <p>This is where students and teachers can discuss topics.</p>
+        
+        <!-- Container for forum posts -->
+        <div id="forumContainer">
+            <!-- Example post (static content) -->
+            <div class="forum-post">
+            </div>
+            <!-- Forum posts will be dynamically appended here -->
+        </div>
+
+        <!-- Section for creating a new post -->
+        <div id="newPost">
+            <h3>New Post</h3>
+            <textarea id="postContent" rows="5" placeholder="Write your post..."></textarea>
+            <button id="postButton">Post</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const forumContainer = document.getElementById('forumContainer'); // Selects the forum posts container
+            const postButton = document.getElementById('postButton'); // Selects the post button
+            const postContent = document.getElementById('postContent'); // Selects the textarea for new posts
+
+            // Retrieve forum posts from localStorage or initialize with an empty array
+            let forumPosts = JSON.parse(localStorage.getItem('forumPosts')) || []; // Gets existing posts or initializes an empty array
+
+            // Function to render all forum posts
+            function renderPosts() {
+                forumContainer.innerHTML = ''; // Clears existing posts
+                
+                // Loop through each post and create HTML for it
+                forumPosts.forEach((post, index) => {
+                    const postElement = document.createElement('div'); // Creates a new div element
+                  //  postElement.className = 'forum-post'; // Sets the class name for styling purposes.This will replace any existing classes with 'forum-post'
+              // postElement.classList.add('forum-post'); // This will add 'forum-post' class without removing any existing classes
+                    postElement.innerHTML = `
+                        <h3>${post.username}</h3> 
+                        <p>${post.content}</p>
+                        <small>Posted by ${post.username} on ${post.date}</small>
+                        <button class="deleteButton" data-index="${index}">Delete</button>
+                    `; // Sets the inner HTML with post data and post is a parameter which is used in forEach(post, index) post.username
+                    forumContainer.appendChild(postElement); // Appends the new post to the container means adding the newly created <div> element which represents a forum post
+                });
+
+                // Add event listeners to delete buttons for each post
+                document.querySelectorAll('.deleteButton').forEach(button => {// Selects all elements with the class deleteButton (the delete buttons for the posts).
+                    //forEach(button=>) Iterates over each delete button and attaches an event listener to handle click events.
+                    button.addEventListener('click', (event) => { // Sets up a click event listener for each delete button.
+                        const index = event.target.dataset.index; // Gets the index of the post to delete
+                      //  When a user clicks the "Delete" button, you need to determine which post to delete. The data-index attribute stores the index of the post.
+                      // Using dataset.index allows you to easily retrieve this index and pass it to the deletePost function.
+                        // Automatically converts attribute names to camelCase, which can be more convenient in JavaScript.
+                        // CamelCase is a naming convention used in programming where multiple words are joined together without spaces like useProfile, OrderDetails 
+                        deletePost(index); // Calls the deletePost function
+                    });
+                });
+            }
+
+            // Function to delete a post by index
+            function deletePost(index) {
+                forumPosts.splice(index, 1); // Removes the post from the array
+                localStorage.setItem('forumPosts', JSON.stringify(forumPosts)); // Converts a JavaScript object or value into a JSON string. Updates localStorage with the new array
+                // To prepare data for storage or transmission (e.g., storing data in localStorage, sending data to a server).
+                renderPosts(); // Re-renders the posts
+            }
+
+            // Event listener for the post button to add a new post
+            postButton.addEventListener('click', () => {
+                const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')); // Gets the logged-in user from localStorage
+                if (!loggedInUser) {
+                    alert('Please log in to post.'); // Alerts if no user is logged in
+                    return;
+                }
+
+                const newPost = {
+                    username: loggedInUser.username, // Sets the username of the post
+                    content: postContent.value, // Gets the content from the textarea
+                    date: new Date().toLocaleDateString() // Sets the current date
+                };
+
+                forumPosts.push(newPost); // Adds the new post to the array
+                localStorage.setItem('forumPosts', JSON.stringify(forumPosts)); // Updates localStorage
+                renderPosts(); // Re-renders the posts
+                postContent.value = ''; // Clears the textarea
+            });
+
+            renderPosts(); // Initial call to render posts when the page loads
+
+            // Event listener for the logout button
+            const logoutButton = document.getElementById('logoutButton'); // Selects the logout button
+            logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('loggedInUser'); // Removes the logged-in user from localStorage
+                window.location.href = 'login.html'; // Redirects to the login page
+            });
+        });
+    </script>
+</body>
+</html>

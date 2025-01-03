@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inputbx">
+    <button id="btn" onclick="todo()">Click</button>
+    <ul id="gen"></ul>
+    <script>
+        const todo= ()=>{
+            const inputbox = document.getElementById("inputbx");
+            const text = document.getElementById('gen');
+            if(inputbox.value.trim() === ''){
+                alert('Blank input box!');
+            }
+            const taskText = document.createTextNode(inputbox.value);
+            const textLine = document.createElement('li');
+            const deletebtn = document.createElement('button');
+            const editbtn = document.createElement('button');
+            deletebtn.innerText = 'Delete';
+            editbtn.innerText = 'Edit';
+            deletebtn.onclick = ()=>{
+                text.removeChild(textLine)
+            }
+            editbtn.onclick = ()=>{
+               const newText = prompt('Edit:', taskText.nodeValue)
+                if(newText !== ''){
+                    taskText.nodeValue = newText;
+                }
+            }
+            
+            textLine.appendChild(taskText);
+            textLine.appendChild(deletebtn);
+           
+            textLine.appendChild(editbtn);
+            text.appendChild(textLine);
+        }
+       
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Student Social Network</title>
+    <style>
+        /* Styles for the body element */
+        body {
+            font-family: Arial, sans-serif; /* Set font for the entire page */
+            background-image: url(https://wallpapercave.com/wp/wp2506819.jpg); /* Background image for the page */
+            background-size: cover; /* Ensure the background image covers the entire page */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent repeating the background image */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            display: flex; /* Use flexbox for layout */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            height: 100vh; /* Full viewport height */
+        }
+
+        /* Styles for the registration container */
+        #registerContainer {
+            max-width: 400px; /* Maximum width of the container */
+            width: 100%; /* Full width of the container */
+            padding: 20px; /* Padding inside the container */
+            background-image: url(https://i.gifer.com/origin/35/35a28d51a9ea1fbff7d35517e6a1e9e6.gif); /* Background image for the container */
+            background-size: cover; /* Ensure the background image covers the container */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent repeating the background image */
+            border-radius: 8px; /* Rounded corners for the container */
+            box-shadow: 0 0 10px rgb(240, 47, 147); /* Box shadow effect */
+        }
+
+        /* Styles for the heading element */
+        h2 {
+            color: #333; /* Dark gray color for the heading text */
+        }
+
+        /* Styles for the form element */
+        form {
+            display: flex; /* Use flexbox for form layout */
+            flex-direction: column; /* Stack form elements vertically */
+        }
+
+        /* Styles for the label elements */
+        label {
+            margin-top: 10px; /* Space above each label */
+        }
+
+        /* Styles for input and select elements */
+        input,
+        select {
+            padding: 8px; /* Padding inside input and select elements */
+            margin-top: 5px; /* Space above each input and select element */
+            border: 1px solid #ccc; /* Light gray border */
+            border-radius: 4px; /* Rounded corners */
+        }
+
+        /* Styles for the button element */
+        button {
+            margin-top: 10px; /* Space above the button */
+            padding: 10px; /* Padding inside the button */
+            background-color: #5cb85c; /* Green background color */
+            border: none; /* Remove default border */
+            color: #fff; /* White text color */
+            border-radius: 4px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        /* Hover effect for the button */
+        button:hover {
+            background-color: #4cae4c; /* Darker green background color on hover */
+        }
+
+        /* Styles for the link section */
+        .link {
+            margin-top: 10px; /* Space above the link section */
+            text-align: center; /* Center text */
+        }
+
+        /* Styles for the links */
+        .link a {
+            color: #007bff; /* Blue color for links */
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        /* Hover effect for links */
+        .link a:hover {
+            text-decoration: underline; /* Underline links on hover */
+        }
+
+        /* Custom button styles from Uiverse.io */
+        .continue-application {
+            --color: #fff; /* Text color */
+            --background: #404660; /* Default background color */
+            --background-hover: #3A4059; /* Background color on hover */
+            --background-left: #2B3044; /* Background color for left part of the button */
+            --folder: #F3E9CB; /* Color for folder */
+            --folder-inner: #BEB393; /* Color for folder inner */
+            --paper: #FFFFFF; /* Color for paper inside folder */
+            --paper-lines: #BBC1E1; /* Color for paper lines */
+            --paper-behind: #E1E6F9; /* Color for behind paper */
+            --pencil-cap: #fff; /* Color for pencil cap */
+            --pencil-top: #275EFE; /* Color for pencil top */
+            --pencil-middle: #fff; /* Color for pencil middle */
+            --pencil-bottom: #5C86FF; /* Color for pencil bottom */
+            --shadow: rgba(13, 15, 25, .2); /* Shadow color */
+            border: none; /* Remove default border */
+            outline: none; /* Remove default outline */
+            cursor: pointer; /* Pointer cursor on hover */
+            position: relative; /* Position relative for positioning child elements */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 14px; /* Font size */
+            font-weight: 500; /* Font weight */
+            line-height: 19px; /* Line height */
+            appearance: none; /* Remove default appearance */
+            -webkit-tap-highlight-color: transparent; /* Remove tap highlight color on mobile */
+            padding: 17px 29px 17px 69px; /* Padding inside the button */
+            transition: background 0.3s; /* Transition effect for background color */
+            color: var(--color); /* Set text color */
+            background: var(--bg, var(--background)); /* Set background color */
+        }
+
+        /* Styles for the folder inside the button */
+        .continue-application>div {
+            top: 0; /* Position at the top */
+            left: 0; /* Position at the left */
+            bottom: 0; /* Position at the bottom */
+            width: 53px; /* Width of the folder */
+            position: absolute; /* Absolute positioning */
+            overflow: hidden; /* Hide overflow */
+            border-radius: 5px 0 0 5px; /* Rounded corners for left side */
+            background: var(--background-left); /* Background color for folder */
+        }
+
+        /* Styles for the folder top inside the button */
+        .continue-application>div .folder {
+            width: 23px; /* Width of the folder top */
+            height: 27px; /* Height of the folder top */
+            position: absolute; /* Absolute positioning */
+            left: 15px; /* Position from the left */
+            top: 13px; /* Position from the top */
+        }
+
+        /* Styles for the folder top inner part */
+        .continue-application>div .folder .top {
+            left: 0; /* Position at the left */
+            top: 0; /* Position at the top */
+            z-index: 2; /* Z-index for stacking order */
+            position: absolute; /* Absolute positioning */
+            transform: translateX(var(--fx, 0)); /* Transform effect */
+            transition: transform 0.4s ease var(--fd, 0.3s); /* Transition effect */
+        }
+
+        /* Styles for the SVG icon inside the folder top */
+        .continue-application>div .folder .top svg {
+            width: 24px; /* Width of the SVG icon */
+            height: 27px; /* Height of the SVG icon */
+            display: block; /* Display as block */
+            fill: var(--folder); /* Fill color for the SVG */
+            transform-origin: 0 50%; /* Transform origin */
+            transition: transform 0.3s ease var(--fds, 0.45s); /* Transition effect */
+            transform: perspective(120px) rotateY(var(--fr, 0deg)); /* 3D rotation effect */
+        }
+
+        /* Styles for the folder inner part */
+        .continue-application>div .folder:before,
+        .continue-application>div .folder:after,
+        .continue-application>div .folder .paper {
+            content: ""; /* Empty content */
+            position: absolute; /* Absolute positioning */
+            left: var(--l, 0); /* Position from the left */
+            top: var(--t, 0); /* Position from the top */
+            width: var(--w, 100%); /* Width of the element */
+            height: var(--h, 100%); /* Height of the element */
+            border-radius: 1px; /* Border radius */
+            background: var(--b, var(--folder-inner)); /* Background color */
+        }
+
+        /* Styles for the folder inner part before */
+        .continue-application>div .folder:before {
+            box-shadow: 0 1.5px 3px var(--shadow), 0 2.5px 5px var(--shadow), 0 3.5px 7px var(--shadow); /* Shadow effect */
+            transform: translateX(var(--fx, 0)); /* Transform effect */
+            transition: transform 0.4s ease var(--fd, 0.3s); /* Transition effect */
+        }
+
+        /* Styles for the folder inner part after */
+        .continue-application>div .folder:after,
+        .continue-application>div .folder .paper {
+            --l: 1px; /* Position from the left */
+            --t: 1px; /* Position from the top */
+            --w: 21px; /* Width of the element */
+            --h: 25px; /* Height of the element */
+            --b: var(--paper-behind); /* Background color */
+        }
+
+        /* Styles for the folder inner part after */
+        .continue-application>div .folder:after {
+            transform: translate(var(--pbx, 0), var(--pby, 0)); /* Transform effect */
+            transition: transform 0.4s ease var(--pbd, 0s); /* Transition effect */
+        }
+
+        /* Styles for the paper inside the folder */
+        .continue-application>div .folder .paper {
+            z-index: 1; /* Z-index for stacking order */
+            --b: var(--paper); /* Background color */
+        }
+
+        /* Styles for the lines on the paper */
+        .continue-application>div .folder .paper:before,
+        .continue-application>div .folder .paper:after {
+            content: ""; /* Empty content */
+            width: var(--wp, 14px); /* Width of the lines */
+            height: 2px; /* Height of the lines */
+            border-radius: 1px; /* Border radius for lines */
+            transform: scaleY(0.5); /* Transform effect */
+            left: 3px; /* Position from the left */
+            top: var(--tp, 3px); /* Position from the top */
+            position: absolute; /* Absolute positioning */
+            background: var(--paper-lines); /* Background color */
+            box-shadow: 0 12px 0 0 var(--paper-lines), 0 24px 0 0 var(--paper-lines); /* Shadow effect */
+        }
+
+        /* Styles for the lines on the paper after */
+        .continue-application>div .folder .paper:after {
+            --tp: 6px; /* Position from the top */
+            --wp: 10px; /* Width of the lines */
+        }
+
+        /* Styles for the pencil inside the folder */
+        .continue-application>div .pencil {
+            height: 2px; /* Height of the pencil */
+            width: 3px; /* Width of the pencil */
+            border-radius: 1px 1px 0 0; /* Rounded corners */
+            top: 8px; /* Position from the top */
+            left: 105%; /* Position from the left */
+            position: absolute; /* Absolute positioning */
+            z-index: 3; /* Z-index for stacking order */
+            transform-origin: 50% 19px; /* Transform origin */
+            background: var(--pencil-cap); /* Background color */
+            transform: translateX(var(--pex, 0)) rotate(35deg); /* Transform effect */
+            transition: transform 0.4s ease var(--pbd, 0s); /* Transition effect */
+        }
+
+        /* Styles for the pencil top */
+        .continue-application>div .pencil:before,
+        .continue-application>div .pencil:after {
+            content: ""; /* Empty content */
+            position: absolute; /* Absolute positioning */
+            display: block; /* Display as block */
+            background: var(--b, linear-gradient(var(--pencil-top) 55%, var(--pencil-middle) 55.1%, var(--pencil-middle) 60%, var(--pencil-bottom) 60.1%)); /* Background color */
+            width: var(--w, 5px); /* Width of the pencil top */
+            height: var(--h, 20px); /* Height of the pencil top */
+            border-radius: var(--br, 2px 2px 0 0); /* Border radius */
+            top: var(--t, 2px); /* Position from the top */
+            left: var(--l, -1px); /* Position from the left */
+        }
+
+        /* Styles for the pencil top before */
+        .continue-application>div .pencil:before {
+            -webkit-clip-path: polygon(0 5%, 5px 5%, 5px 17px, 50% 20px, 0 17px); /* Clip path for pencil top */
+            clip-path: polygon(0 5%, 5px 5%, 5px 17px, 50% 20px, 0 17px); /* Clip path for pencil top */
+        }
+
+        /* Styles for the pencil top after */
+        .continue-application>div .pencil:after {
+            --b: none; /* No background */
+            --w: 3px; /* Width of the pencil top */
+            --h: 6px; /* Height of the pencil top */
+            --br: 0 2px 1px 0; /* Border radius */
+            --t: 3px; /* Position from the top */
+            --l: 3px; /* Position from the left */
+            border-top: 1px solid var(--pencil-top); /* Border for pencil top */
+            border-right: 1px solid var(--pencil-top); /* Border for pencil top */
+        }
+
+        /* Styles for the before and after pseudo-elements of the button */
+        .continue-application:before,
+        .continue-application:after {
+            content: ""; /* Empty content */
+            position: absolute; /* Absolute positioning */
+            width: 10px; /* Width of the elements */
+            height: 2px; /* Height of the elements */
+            border-radius: 1px; /* Border radius */
+            background: var(--color); /* Background color */
+            transform-origin: 9px 1px; /* Transform origin */
+            transform: translateX(var(--cx, 0)) scale(0.5) rotate(var(--r, -45deg)); /* Transform effect */
+            top: 26px; /* Position from the top */
+            right: 16px; /* Position from the right */
+            transition: transform 0.3s; /* Transition effect */
+        }
+
+        /* Styles for the after pseudo-element of the button */
+        .continue-application:after {
+            --r: 45deg; /* Rotation angle */
+        }
+
+        /* Hover effect for the button */
+        .continue-application:hover {
+            --cx: 2px; /* Transform effect on hover */
+            --bg: var(--background-hover); /* Background color on hover */
+            --fx: -40px; /* Transform effect on hover */
+            --fr: -60deg; /* Rotation angle on hover */
+            --fd: .15s; /* Transition effect on hover */
+            --fds: 0s; /* Delay for transform effect */
+            --pbx: 3px; /* Transform effect on hover */
+            --pby: -3px; /* Transform effect on hover */
+            --pbd: .15s; /* Transition effect on hover */
+            --pex: -24px; /* Transform effect on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="registerContainer">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <!-- Dropdown to select user type -->
+            <label for="userType">I am a:</label>
+            <select id="userType" required>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+            </select>
+            <!-- Input for username -->
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            <!-- Input for password -->
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+
+            <!-- Submit button with custom styling -->
+            <button type="submit" class="continue-application">
+                <div>
+                    <div class="pencil"></div>
+                    <div class="folder">
+                        <div class="top">
+                            <svg viewBox="0 0 24 27">
+                                <path
+                                    d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="paper"></div>
+                    </div>
+                </div>
+                Register Here
+            </button>
+        </form>
+        <!-- Link to login page -->
+        <div class="link">
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Wait until the DOM content is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const registerForm = document.getElementById('registerForm'); // Get the register form element
+
+            let users = JSON.parse(localStorage.getItem('users')) || []; // Retrieve existing users from localStorage, or initialize as an empty array
+
+            // Listen for form submission
+            registerForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Get form values
+                const userType = document.getElementById('userType').value;
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                // Check if username already exists
+                if (users.some(user => user.username === username)) {
+                    alert('Username already exists.'); // Alert if username is taken
+                    return;
+                }
+
+                // Check if password meets minimum length requirement
+                if (password.length < 6) {
+                    alert('Password must be at least 6 characters long.'); // Alert if password is too short
+                    return;
+                }
+
+                // Add new user to the array
+                users.push({ username, password, type: userType });
+                // Save updated users array to localStorage
+                localStorage.setItem('users', JSON.stringify(users));// Converts a JavaScript object or value into a JSON string.
+                // To prepare data for storage or transmission (e.g., storing data in localStorage, sending data to a server).
+                alert('Registration successful! Please log in.'); // Alert user of successful registration
+                registerForm.reset(); // Reset the form fields
+                window.location.href = 'login.html'; // Redirect to login page
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page - Student Social Network</title>
+    <style>
+        #app {
+            max-width: 800px;
+            height: 500px;
+            margin: auto;
+            padding: 20px;
+            background-image: url(https://img.freepik.com/premium-vector/web-development-coding-programming-laptop_530733-2765.jpg?w=2000);
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(245, 7, 7, 0.88);
+        }
+
+        h2 {
+            color: rgb(219, 10, 10);
+        }
+/* CSS for animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes colorChange {
+    0% {
+        color: #f7542f;
+    }
+    20% {
+        color: orange;
+    }
+    40% {
+        color: orangered;
+    }
+    100% {
+        color: #ff0000;
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
+}
+
+#welcomeUser {
+    display: inline-block;
+    animation: fadeIn 1s ease-in, colorChange 3s ease-in-out infinite, bounce 1s ease-in-out;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+        nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #007bff;
+            border-radius: 8px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .nav-links a.active {
+            text-decoration: underline;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #d9534f;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c9302c;
+        }
+
+        @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:200');
+
+body  {
+    background-image: url('https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg');
+  background-size:cover;
+        -webkit-animation: slidein 30s;
+        animation: slidein 30s;
+
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+
+        -webkit-animation-direction: alternate;
+        animation-direction: alternate;              
+}
+
+@-webkit-keyframes slidein {
+from {background-position: top; background-size:1500px; }
+to {background-position: -100px 0px;background-size:2750px;}
+}
+
+@keyframes slidein {
+from {background-position: top;background-size:1500px; }
+to {background-position: -100px 0px;background-size:2750px;}
+
+}
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div id="app" class="center">
+       
+        <nav>
+            <div class="nav-links">
+                <a href="homepage.html">Home</a>
+                <a href="forum.html" id="navForum">Forum</a>
+                <a href="notes.html" id="navNotes">Notes</a>
+                <a href="materials.html" id="navMaterials">Materials</a>
+            </div>
+            <button id="logoutButton">Logout</button>
+        </nav>
+
+        <h2>Welcome to <span id="welcomeUser">User</span></h2>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const welcomeUser = document.getElementById('welcomeUser');
+            const logoutButton = document.getElementById('logoutButton');
+            let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+            if (!loggedInUser) {
+                window.location.href = 'login.html'; // Redirect to login page if not logged in
+            } else {
+                welcomeUser.textContent = loggedInUser.username;
+            }
+
+            logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('loggedInUser');
+                window.location.href = 'login.html'; // Redirect to login page
+            });
+        });
+    </script>
+</body>
+</html>
